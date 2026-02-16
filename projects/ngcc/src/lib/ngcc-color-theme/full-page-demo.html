@@ -1,0 +1,352 @@
+<div class="page-container">
+  <!-- Header -->
+  <header class="page-header">
+    <div class="header-content">
+      <div class="header-brand">
+        <ngcc-icon name="services" size="lg" color="var(--cds-text-primary)" />
+        <h1>Enterprise Dashboard</h1>
+      </div>
+      <div class="header-actions">
+        <ngcc-button
+          variant="ghost"
+          iconName="search"
+          iconOnly="true"
+          ariaLabel="Search"
+          (click)="onSearchClick()"
+        />
+        <ngcc-button
+          variant="ghost"
+          iconName="notification"
+          iconOnly="true"
+          ariaLabel="Notifications"
+          (click)="onNotificationClick()"
+        />
+        <ngcc-button
+          variant="ghost"
+          iconName="configuration"
+          iconOnly="true"
+          ariaLabel="Settings"
+          (click)="onSettingsClick()"
+        />
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="page-main">
+    <div class="content-grid">
+      <!-- Sidebar with Theme Switcher -->
+      <aside class="sidebar">
+        <div class="sidebar-section">
+          <h3>Theme Settings</h3>
+          <ngcc-color-theme-switcher />
+        </div>
+
+        <!-- Quick Stats Sidebar -->
+        <div class="sidebar-section sidebar-stats">
+          <h3>System Health</h3>
+          <div class="sidebar-stat-item">
+            <ngcc-icon name="cpu" size="md" color="var(--cds-support-info)" />
+            <div class="sidebar-stat-info">
+              <span class="sidebar-stat-label">CPU Usage</span>
+              <span class="sidebar-stat-value">45%</span>
+            </div>
+          </div>
+          <div class="sidebar-stat-item">
+            <ngcc-icon name="memory" size="md" color="var(--cds-support-success)" />
+            <div class="sidebar-stat-info">
+              <span class="sidebar-stat-label">Memory</span>
+              <span class="sidebar-stat-value">62%</span>
+            </div>
+          </div>
+          <div class="sidebar-stat-item">
+            <ngcc-icon name="disk" size="md" color="var(--cds-support-warning)" />
+            <div class="sidebar-stat-info">
+              <span class="sidebar-stat-label">Storage</span>
+              <span class="sidebar-stat-value">78%</span>
+            </div>
+          </div>
+          <div class="sidebar-stat-item">
+            <ngcc-icon name="network" size="md" color="var(--cds-support-success)" />
+            <div class="sidebar-stat-info">
+              <span class="sidebar-stat-label">Network</span>
+              <span class="sidebar-stat-value">Online</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content Area -->
+      <div class="main-content">
+        <!-- Stats Cards -->
+        <section class="stats-section">
+          <h2>Overview</h2>
+          <div class="stats-grid">
+            <div
+              class="stat-card"
+              (click)="onStatCardClick('users')"
+              tabindex="0"
+              (keydown)="onStatCardClick('users')"
+              (keyup)="onStatCardClick('users')"
+            >
+              <div class="stat-icon">
+                <ngcc-icon name="user_multi" size="lg" color="var(--cds-support-info)" />
+              </div>
+              <div class="stat-details">
+                <span class="stat-label">Total Users</span>
+                <span class="stat-value">24,521</span>
+                <span class="stat-change positive">
+                  <ngcc-icon name="arrow_up" size="sm" />
+                  +12.5%
+                </span>
+              </div>
+            </div>
+            <div
+              class="stat-card"
+              (click)="onStatCardClick('sessions')"
+              tabindex="0"
+              (keydown)="onStatCardClick('sessions')"
+              (keyup)="onStatCardClick('sessions')"
+            >
+              <div class="stat-icon">
+                <ngcc-icon name="services" size="lg" color="var(--cds-support-success)" />
+              </div>
+              <div class="stat-details">
+                <span class="stat-label">Active Sessions</span>
+                <span class="stat-value">1,429</span>
+                <span class="stat-change positive">
+                  <ngcc-icon name="arrow_up" size="sm" />
+                  +5.2%
+                </span>
+              </div>
+            </div>
+            <div
+              class="stat-card"
+              (click)="onStatCardClick('errors')"
+              tabindex="0"
+              (keydown)="onStatCardClick('errors')"
+              (keyup)="onStatCardClick('errors')"
+            >
+              <div class="stat-icon">
+                <ngcc-icon name="error_filled" size="lg" color="var(--cds-support-error)" />
+              </div>
+              <div class="stat-details">
+                <span class="stat-label">Error Rate</span>
+                <span class="stat-value">0.12%</span>
+                <span class="stat-change negative">
+                  <ngcc-icon name="arrow_up" size="sm" />
+                  +0.02%
+                </span>
+              </div>
+            </div>
+            <div
+              class="stat-card"
+              (click)="onStatCardClick('uptime')"
+              tabindex="0"
+              (keydown)="onStatCardClick('uptime')"
+              (keyup)="onStatCardClick('uptime')"
+            >
+              <div class="stat-icon">
+                <ngcc-icon name="checkmark" size="lg" color="var(--cds-support-success)" />
+              </div>
+              <div class="stat-details">
+                <span class="stat-label">Uptime</span>
+                <span class="stat-value">99.98%</span>
+                <span class="stat-change positive">
+                  <ngcc-icon name="arrow_up" size="sm" />
+                  +0.01%
+                </span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Chart Section -->
+        <section class="chart-section">
+          <div class="section-header">
+            <h2>Monthly Revenue Trend</h2>
+            <div class="section-actions">
+              <ngcc-button
+                variant="ghost"
+                size="sm"
+                label="Export"
+                iconName="chevron_down"
+                (click)="onExportChart()"
+              />
+            </div>
+          </div>
+          <div class="chart-card">
+            <ngcc-charts type="line" [data]="chartData" [options]="chartOptions" />
+          </div>
+        </section>
+
+        <!-- Form Section -->
+        <section class="form-section">
+          <h2>Quick Actions</h2>
+          <div class="form-card">
+            <div class="form-row">
+              <ngcc-input
+                label="Search Users"
+                placeholder="Enter name or email"
+                helperText="Search across all user accounts"
+                [(value)]="searchQuery"
+                (keyup.enter)="onSearch()"
+              />
+              <ngcc-input-number
+                label="User Limit"
+                placeholder="Enter limit"
+                [integerOnly]="true"
+                [min]="1"
+                [max]="1000"
+                [(value)]="userLimit"
+              />
+            </div>
+            <div class="form-row">
+              <ngcc-checkbox label="Include inactive users" [(checked)]="includeInactive" />
+              <ngcc-checkbox label="Include archived accounts" [(checked)]="includeArchived" />
+            </div>
+            <div class="form-actions">
+              <ngcc-button
+                variant="primary"
+                label="Search"
+                iconName="search"
+                (click)="onSearch()"
+              />
+              <ngcc-button
+                variant="secondary"
+                label="Export"
+                iconName="chevron_down"
+                (click)="onExport()"
+              />
+              <ngcc-button variant="ghost" label="Clear Filters" (click)="onClearFilters()" />
+            </div>
+          </div>
+        </section>
+
+        <!-- Table Section -->
+        <section class="table-section">
+          <div class="section-header">
+            <h2>User Management</h2>
+            <div class="section-actions">
+              <ngcc-button
+                variant="primary"
+                size="sm"
+                label="Add User"
+                iconName="add"
+                (click)="onAddUser()"
+              />
+              <ngcc-button
+                variant="ghost"
+                size="sm"
+                iconName="renew"
+                iconOnly="true"
+                ariaLabel="Refresh"
+                (click)="onRefreshTable()"
+              />
+            </div>
+          </div>
+          <div class="table-card">
+            <ngcc-table
+              [columns]="tableColumns"
+              [rows]="tableData"
+              [loading]="tableLoading"
+              [config]="tableConfig"
+              (rowSelect)="onRowSelect($event)"
+            />
+          </div>
+          <div class="table-actions" [class.visible]="selectedRows.length > 0">
+            <span class="selected-count">{{ selectedRows.length }} user(s) selected</span>
+            <ngcc-button
+              variant="secondary"
+              size="sm"
+              label="Edit Selected"
+              iconName="edit"
+              (click)="onEditSelected()"
+            />
+            <ngcc-button
+              variant="danger"
+              size="sm"
+              label="Delete Selected"
+              iconName="delete"
+              (click)="openDeleteModal()"
+            />
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="page-footer">
+    <p>&copy; 2024 Enterprise Dashboard. All rights reserved.</p>
+  </footer>
+
+  <!-- Delete Confirmation Modal -->
+  <ngcc-modal
+    [(open)]="isDeleteModalOpen"
+    title="Confirm Deletion"
+    variant="danger"
+    size="sm"
+    primaryLabel="Delete"
+    secondaryLabel="Cancel"
+    (submitted)="onConfirmDelete()"
+    (closed)="onDeleteModalClosed()"
+  >
+    <div class="modal-content">
+      <ngcc-icon name="warning_filled" size="xl" color="var(--cds-support-error)" />
+      <p>
+        Are you sure you want to delete <strong>{{ selectedRows.length }}</strong> user(s)?
+      </p>
+      <p class="modal-warning">This action cannot be undone.</p>
+    </div>
+  </ngcc-modal>
+
+  <!-- Add User Modal -->
+  <ngcc-modal
+    [(open)]="isAddUserModalOpen"
+    title="Add New User"
+    variant="default"
+    size="md"
+    primaryLabel="Create User"
+    secondaryLabel="Cancel"
+    [primaryDisabled]="!isNewUserFormValid()"
+    (submitted)="onCreateUser()"
+    (closed)="onAddUserModalClosed()"
+  >
+    <div class="add-user-form">
+      <ngcc-input
+        label="Full Name"
+        placeholder="Enter full name"
+        required="true"
+        [(value)]="newUser.name"
+      />
+      <ngcc-input
+        label="Email Address"
+        placeholder="Enter email address"
+        type="email"
+        required="true"
+        [(value)]="newUser.email"
+      />
+      <ngcc-input
+        label="Department"
+        placeholder="Enter department"
+        [(value)]="newUser.department"
+      />
+    </div>
+  </ngcc-modal>
+
+  <!-- Notification Toast -->
+  @if (showNotification) {
+    <div [class]="'notification-toast ' + notificationType">
+      <ngcc-icon [name]="notificationIcon" size="md" />
+      <span>{{ notificationMessage }}</span>
+      <ngcc-button
+        variant="ghost"
+        iconName="close"
+        iconOnly="true"
+        size="sm"
+        (click)="closeNotification()"
+      />
+    </div>
+  }
+</div>

@@ -1,0 +1,143 @@
+<section class="ngcc--color-theme-switcher">
+  <header class="ngcc--color-theme-switcher__header">
+    <h4>Color Theme Configuration</h4>
+    <ngcc-button variant="ghost" size="sm" label="Reset to Defaults" (click)="resetOverrides()" />
+  </header>
+
+  <div class="ngcc--color-theme-switcher__controls">
+    <!-- Brand Color Picker -->
+    <div class="ngcc--color-theme-switcher__color-picker">
+      <label for="brand-color" class="cds--label">Brand Color</label>
+      <div class="ngcc--color-picker-row">
+        <input
+          id="brand-color"
+          type="color"
+          [value]="brandColor()"
+          (input)="onBrandColorChange($event.target.value)"
+          aria-label="Select brand color"
+        />
+        <span class="ngcc--color-value">{{ brandColor() }}</span>
+      </div>
+    </div>
+
+    <!-- Base Theme Selector -->
+    <div class="ngcc--color-theme-switcher__theme-select">
+      <span class="cds--label" id="theme-label">Base Theme</span>
+      <div class="ngcc--theme-options" role="radiogroup" aria-labelledby="theme-label">
+        @for (t of themes(); track t) {
+          <ngcc-button
+            [variant]="t === baseTheme() ? 'primary' : 'ghost'"
+            size="sm"
+            [label]="t"
+            [attr.aria-pressed]="t === baseTheme()"
+            (click)="onBaseThemeChange(t)"
+          />
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Derived Color Palette Preview -->
+  <div class="ngcc--color-theme-switcher__palette">
+    <span class="cds--label">Derived Color Palette</span>
+    <div class="ngcc--palette-grid">
+      <div class="ngcc--palette-item">
+        <div class="ngcc--palette-swatch" [style.background-color]="primaryColor()"></div>
+        <span class="ngcc--palette-label">Primary</span>
+      </div>
+      <div class="ngcc--palette-item">
+        <div class="ngcc--palette-swatch" [style.background-color]="secondaryColor()"></div>
+        <span class="ngcc--palette-label">Secondary</span>
+      </div>
+      <div class="ngcc--palette-item">
+        <div class="ngcc--palette-swatch" [style.background-color]="dangerColor()"></div>
+        <span class="ngcc--palette-label">Danger</span>
+      </div>
+      <div class="ngcc--palette-item">
+        <div class="ngcc--palette-swatch" [style.background-color]="successColor()"></div>
+        <span class="ngcc--palette-label">Success</span>
+      </div>
+      <div class="ngcc--palette-item">
+        <div class="ngcc--palette-swatch" [style.background-color]="warningccolor()"></div>
+        <span class="ngcc--palette-label">Warning</span>
+      </div>
+      <div class="ngcc--palette-item">
+        <div class="ngcc--palette-swatch" [style.background-color]="infoColor()"></div>
+        <span class="ngcc--palette-label">Info</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Applied Token Preview -->
+  <div class="ngcc--color-theme-switcher__tokens">
+    <span class="cds--label">Applied Theme Tokens</span>
+    <div class="ngcc--token-grid">
+      <div
+        class="ngcc--token-item"
+        style="
+          background-color: var(--cds-background);
+          color: var(--cds-text-primary);
+          border: 1px solid var(--cds-border-subtle-01);
+        "
+      >
+        Background
+      </div>
+      <div
+        class="ngcc--token-item"
+        style="
+          background-color: var(--cds-layer-01);
+          color: var(--cds-text-primary);
+          border: 1px solid var(--cds-border-subtle-01);
+        "
+      >
+        Layer 01
+      </div>
+      <div
+        class="ngcc--token-item"
+        style="
+          background-color: var(--cds-layer-02);
+          color: var(--cds-text-primary);
+          border: 1px solid var(--cds-border-subtle-01);
+        "
+      >
+        Layer 02
+      </div>
+      <div
+        class="ngcc--token-item"
+        style="background-color: var(--cds-interactive-01); color: var(--cds-text-on-color)"
+      >
+        Interactive
+      </div>
+      <div
+        class="ngcc--token-item"
+        style="background-color: var(--cds-button-primary); color: var(--cds-text-on-color)"
+      >
+        Primary Btn
+      </div>
+      <div
+        class="ngcc--token-item"
+        style="background-color: var(--cds-button-secondary); color: var(--cds-text-on-color)"
+      >
+        Secondary Btn
+      </div>
+      <div
+        class="ngcc--token-item"
+        style="background-color: var(--cds-support-error); color: var(--cds-text-on-color)"
+      >
+        Error
+      </div>
+      <div
+        class="ngcc--token-item"
+        style="background-color: var(--cds-support-success); color: var(--cds-text-on-color)"
+      >
+        Success
+      </div>
+      <div
+        class="ngcc--token-item"
+        style="background-color: var(--cds-support-warning); color: var(--cds-text-primary)"
+      >
+        Warning
+      </div>
+    </div>
+  </div>
+</section>

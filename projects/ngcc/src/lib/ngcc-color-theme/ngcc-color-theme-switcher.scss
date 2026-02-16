@@ -1,0 +1,153 @@
+.ngcc--color-theme-switcher {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  border: 1px solid var(--cds-border-subtle-01);
+  border-radius: 8px;
+  background-color: var(--cds-layer-01, var(--cds-ui-01));
+  color: var(--cds-text-primary);
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h4 {
+      margin: 0;
+      font-weight: 600;
+      color: var(--cds-text-primary);
+    }
+  }
+
+  &__controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  &__color-picker {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    .ngcc--color-picker-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    input[type='color'] {
+      width: 48px;
+      height: 32px;
+      border: 1px solid var(--cds-border-strong-01);
+      border-radius: 4px;
+      cursor: pointer;
+      background: transparent;
+      padding: 2px;
+
+      &::-webkit-color-swatch-wrapper {
+        padding: 0;
+      }
+
+      &::-webkit-color-swatch {
+        border: none;
+        border-radius: 2px;
+      }
+    }
+
+    .ngcc--color-value {
+      font-size: 0.75rem;
+      font-family: 'IBM Plex Mono', monospace;
+      color: var(--cds-text-secondary);
+      text-transform: uppercase;
+    }
+  }
+
+  &__theme-select {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    .ngcc--theme-options {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+  }
+
+  &__palette {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--cds-border-subtle-01);
+  }
+
+  &__tokens {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--cds-border-subtle-01);
+  }
+}
+
+.cds--label {
+  font-weight: 600;
+  color: var(--cds-text-secondary);
+  font-size: 0.75rem;
+  letter-spacing: 0.32px;
+}
+
+.ngcc--palette-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.ngcc--palette-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.ngcc--palette-swatch {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  border: 1px solid var(--cds-border-subtle-01);
+  transition: background-color 0.2s;
+}
+
+.ngcc--palette-label {
+  font-size: 0.625rem;
+  color: var(--cds-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.ngcc--token-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.ngcc--token-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 0 0 100px;
+  padding: 0.75rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.625rem;
+  font-weight: 600;
+  text-align: center;
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
