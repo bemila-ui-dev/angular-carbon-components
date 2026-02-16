@@ -1,0 +1,24 @@
+<button
+  [type]="type"
+  [disabled]="disabled"
+  [attr.aria-disabled]="disabled"
+  [attr.aria-label]="ariaLabel ?? null"
+  [attr.aria-expanded]="ariaExpanded ?? null"
+  [class]="classes()"
+  role="button"
+  (keydown)="onKeydown($event)"
+>
+  @if (!skeleton) {
+    <!-- Label -->
+    @if (!iconOnly) {
+      <span class="cds--btn__label">{{ label }}</span>
+    }
+    @if (iconName) {
+      <ngcc-icon
+        [name]="iconName"
+        [svgClass]="iconOnly ? 'ngcc--icon-only' : ''"
+        [decorative]="iconOnly"
+      />
+    }
+  }
+</button>
