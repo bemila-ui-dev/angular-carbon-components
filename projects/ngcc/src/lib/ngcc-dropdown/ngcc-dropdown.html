@@ -1,0 +1,175 @@
+@if (getSkeleton()) {
+  <span class="cds--label cds--skeleton"></span>
+  <div class="cds--text-input cds--skeleton"></div>
+} @else {
+  @if (getLabel()) {
+    <label id="dropdown-label" class="cds--label" [attr.for]="inputId">
+      {{ getLabel() }}
+      @if (getRequired()) {
+        <span class="cds--input-required" aria-hidden="true">*</span>
+      }
+    </label>
+  }
+  <div
+    [class]="triggerClass()"
+    (focusout)="onTriggerBlur()"
+    [attr.data-invalid]="getInvalid() ? getInvalid() : null"
+  >
+    <button
+      type="button"
+      class="cds--list-box__field"
+      [attr.tabindex]="isDisabled() ? -1 : 0"
+      (click)="toggle()"
+      (keydown)="onTriggerKeydown($event)"
+      (focus)="onTriggerFocus()"
+      (blur)="onTriggerBlur()"
+      [attr.required]="getRequired() ? 'true' : null"
+      [attr.aria-disabled]="isDisabled() || null"
+      [attr.aria-label]="computedAriaLabel()"
+      [attr.aria-labelledby]="getAriaLabel() ? getAriaLabel() : 'dropdown-label'"
+      data-testid="ngcc-dropdown-trigger"
+      [attr.aria-invalid]="getInvalid() ? getInvalid() : null"
+      [attr.aria-describedby]="getInvalid() ? 'dropdown-error' : null"
+    >
+      <span class="cds--list-box__label">
+        {{ getLabelForSelection() }}
+      </span>
+      <ngcc-icon
+        [name]="'chevron_down'"
+        class="cds--list-box__menu-icon"
+        size="sm"
+        aria-label="Dropdown Trigger"
+      />
+    </button>
+    @if (getInvalid()) {
+      <ngcc-icon
+        svgClass="cds--list-box__invalid-icon"
+        [name]="'error'"
+        color="#da1e28"
+        size="sm"
+      />
+    }
+    <div
+      role="combobox"
+      aria-haspopup="listbox"
+      [attr.aria-expanded]="isOpen()"
+      [attr.aria-controls]="isOpen() ? 'dropdown-listbox' : null"
+      [attr.aria-activedescendant]="activeIndex() !== null ? itemId(activeIndex()!) : null"
+      [class.cds--dropdown--open]="isOpen()"
+      [class.cds--dropdown--focus]="isFocused()"
+      [class.cds--dropdown--disabled]="isDisabled()"
+      [attr.aria-label]="computedAriaLabel()"
+      [attr.aria-labelledby]="getLabel() ? getLabel() : 'dropdown-label'"
+    >
+      @if (isOpen()) {
+        <ul
+          id="dropdown-listbox"
+          role="listbox"
+          aria-label="Listbox"
+          class="cds--list-box__menu"
+          [class.cds--multi-select]="getMulti()"
+          tabindex="0"
+          (keydown)="onMenuKeydown($event)"
+          [attr.aria-multiselectable]="getMulti()"
+          data-testid="ngcc-dropdown-menu"
+        >
+          <!-- Searchable Header -->
+          <div class="cds--dropdown-search">
+            <div class="cds--search cds--search--md cds--search--light" role="search">
+              <div class="cds--search-magnifier" aria-hidden="true">
+                <ngcc-icon name="search" size="sm" svgClass="cds--search-magnifier-icon" />
+              </div>
+              <input
+                type="text"
+                class="cds--search-input"
+                placeholder="Search..."
+                [ngModel]="searchQuery()"
+                (ngModelChange)="searchQuery.set($event)"
+                (click)="$event.stopPropagation()"
+                (keydown)="onSearchKeydown($event)"
+                (input)="onSearchInput($event)"
+                [attr.aria-label]="'Search options'"
+              />
+            </div>
+          </div>
+
+          @if (filteredItemCount() === 0) {
+            <li
+              class="cds--list-box__menu-item cds--list-box__menu-item--disabled"
+              aria-disabled="true"
+            >
+              <div class="cds--list-box__menu-item__option">
+                <span class="cds--list-box__menu-item__label">No results found</span>
+              </div>
+            </li>
+          } @else {
+            @for (item of filteredItems(); track $index) {
+              <li
+                [id]="itemId($index)"
+                role="option"
+                [attr.aria-selected]="isSelected(item)"
+                [attr.aria-multiselectable]="getMulti()"
+                class="cds--list-box__menu-item"
+                [class.cds--list-box__menu-item--highlighted]="
+                  getMulti() ? _isEqual(item.value, lastSelected()) : isSelected(item)
+                "
+                [class.cds--list-box__menu-item--active]="isSelected(item)"
+                [class.cds--list-box__menu-item--disabled]="item?.disabled"
+                [attr.aria-disabled]="item?.disabled || null"
+                [attr.disabled]="item?.disabled || null"
+                (click)="onItemClick($event, item)"
+                (keydown)="onItemClick($event, item)"
+                (mouseenter)="activeIndex.set($index)"
+              >
+                <div class="cds--list-box__menu-item__option">
+                  @if (getMulti()) {
+                    <div class="cds--form-item cds--checkbox-wrapper">
+                      <label
+                        class="cds--checkbox-label"
+                        [attr.data-contained-checkbox-state]="isSelected(item)"
+                      >
+                        <input
+                          type="checkbox"
+                          [checked]="isSelected(item)"
+                          aria-hidden="true"
+                          tabindex="-1"
+                          class="cds--checkbox"
+                          (click)="$event.stopPropagation()"
+                        />
+                        <span class="cds--checkbox-appearance"></span>
+                        <span class="cds--checkbox-label-text">
+                          {{ item?.label }}
+                        </span>
+                      </label>
+                    </div>
+                  } @else {
+                    <span class="cds--list-box__menu-item__label">
+                      {{ item?.label }}
+                    </span>
+                    @if (isSelected(item)) {
+                      <ngcc-icon
+                        class="cds--list-box__menu-item__selected-icon"
+                        [name]="'checkmark'"
+                        size="sm"
+                      />
+                    }
+                  }
+                </div>
+              </li>
+            }
+          }
+        </ul>
+      }
+    </div>
+  </div>
+  <!-- Error message -->
+  @if (getInvalid()) {
+    <div id="dropdown-error" role="alert" class="cds--form-requirement" aria-live="assertive">
+      {{ displayErrorMessage() }}
+    </div>
+  } @else if (getHelperText()) {
+    <div class="cds--form__helper-text">
+      {{ getHelperText() }}
+    </div>
+  }
+}
