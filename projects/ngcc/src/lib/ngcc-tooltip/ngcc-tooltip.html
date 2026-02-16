@@ -1,0 +1,40 @@
+<!-- Trigger -->
+<span
+  #trigger
+  tabindex="0"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseLeave()"
+  (focusin)="onFocusIn()"
+  (focusout)="onFocusOut()"
+  (keyup)="onKeyUp($event)"
+  [attr.aria-describedby]="isOpen() ? tooltipId() : null"
+>
+  <ng-content />
+</span>
+
+<!-- Tooltip -->
+@if (isOpen() && getDescription()) {
+  <span
+    #tooltip
+    class="cds--popover"
+    [id]="tooltipId()"
+    role="tooltip"
+    [attr.aria-hidden]="!isOpen()"
+  >
+    @if (!disabled) {
+      <ng-container>
+        <span class="cds--popover-content cds--tooltip-content">
+          @if (!isTemplate(getDescription())) {
+            <ng-container>{{ getDescription() }} </ng-container>
+          } @else {
+            <ng-template
+              [ngTemplateOutlet]="descriptionTemplate()"
+              [ngTemplateOutletContext]="{}"
+            />
+          }
+        </span>
+        <span class="cds--popover-caret" [class.cds--popover--auto-align]="autoAlign"></span>
+      </ng-container>
+    }
+  </span>
+}
