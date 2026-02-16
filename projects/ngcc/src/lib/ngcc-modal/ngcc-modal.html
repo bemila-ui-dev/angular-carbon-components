@@ -1,0 +1,57 @@
+@if (getOpen()) {
+  <div
+    class="cds--modal is-visible"
+    role="dialog"
+    aria-modal="true"
+    [attr.aria-labelledby]="titleId || null"
+    (click)="onOverlayClick($event)"
+    (keydown.enter)="onOverlayClick($event)"
+    (keydown.space)="onOverlayClick($event)"
+    [class.cds--modal--danger]="variant === 'danger'"
+  >
+    <div [class]="'cds--modal-container cds--modal-container--' + size">
+      <!-- Header -->
+      <header class="cds--modal-header">
+        <p class="cds--modal-header__heading" [id]="titleId">
+          {{ title }}
+        </p>
+        <!-- Close Button -->
+        <button
+          class="ngcc-modal-close-btn cds--modal-close-button"
+          (click)="close()"
+          (keydown.enter)="close()"
+          (keydown.space)="close()"
+          aria-label="Close"
+        >
+          <ngcc-tooltip [description]="'close'" class="cds--modal-close cds--icon-tooltip">
+            <ngcc-icon name="close" [svgClass]="'cds--modal-close__icon'" />
+          </ngcc-tooltip>
+        </button>
+      </header>
+
+      <!-- Content -->
+      <div class="cds--modal-content">
+        <ng-content />
+      </div>
+
+      <!-- Footer -->
+      @if (variant !== 'passive') {
+        <footer class="cds--modal-footer">
+          <button type="button" class="cds--btn cds--btn--secondary" (click)="onSecondaryClick()">
+            {{ secondaryLabel }}
+          </button>
+          <button
+            type="button"
+            class="cds--btn"
+            [class.cds--btn--danger]="variant === 'danger'"
+            [class.cds--btn--primary]="variant !== 'danger'"
+            [disabled]="primaryDisabled"
+            (click)="submit()"
+          >
+            {{ primaryLabel }}
+          </button>
+        </footer>
+      }
+    </div>
+  </div>
+}
