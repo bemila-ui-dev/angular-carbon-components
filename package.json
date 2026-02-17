@@ -24,7 +24,14 @@
     "audit:licenses": "npx license-checker --production --failOn \"GPL-2.0;GPL-3.0;AGPL-1.0;AGPL-3.0;SSPL-1.0\"",
     "storybook": "ng run ngcc:storybook --config-dir ./.storybook",
     "build-storybook": "ng run ngcc:build-storybook --config-dir ./.storybook",
-    "precheck": "npm run build:lib && npm run test && npm run lint && npm run audit:prod && npm run audit:licenses"
+    "precheck": "npm run build:lib && npm run test && npm run lint && npm run audit:prod && npm run audit:licenses",
+    "commit": "czg",
+    "prepare": "husky"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-git"
+    }
   },
   "private": true,
   "dependencies": {
@@ -49,6 +56,8 @@
     "@angular/build": "^20.0.0 || ^21.0.0",
     "@angular/cli": "^20.0.0 || ^21.0.0",
     "@angular/compiler-cli": "^20.0.0 || ^21.0.0",
+    "@commitlint/cli": "^20.4.1",
+    "@commitlint/config-conventional": "^20.4.1",
     "@compodoc/compodoc": "^1.1.30",
     "@storybook/addon-a11y": "^10.2.7",
     "@storybook/addon-docs": "^10.2.1",
@@ -61,8 +70,11 @@
     "@vitest/coverage-v8": "^3.2.4 || ^4.0.0",
     "@vitest/ui": "^3.2.4 || ^4.0.0",
     "axe-core": "^4.10.0",
+    "cz-git": "^1.12.0",
+    "czg": "^1.12.0",
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
+    "husky": "^9.1.7",
     "jsdom": "^27.4.0",
     "ng-packagr": "^20.0.0 || ^21.0.0",
     "prettier": "^3.8.1",

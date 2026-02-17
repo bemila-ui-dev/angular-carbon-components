@@ -15,10 +15,6 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
-permissions:
-  contents: read
-  pull-requests: write
-
 jobs:
   lint:
     name: Lint
@@ -92,27 +88,13 @@ jobs:
       - name: Audit licenses
         run: npm run audit:licenses
 
-      - name: Comment PR on success
-        if: success() && github.event_name == 'pull_request'
-        uses: marocchino/sticky-pull-request-comment@v2
-        with:
-          message: |
-            ### CI Results
-
-            | Check | Status |
-            |-------|--------|
-            | Lint (ESLint) | Passed |
-            | Lint (Prettier) | Passed |
-            | Tests | Passed |
-            | Build | Passed |
-            | Audit (deps) | Passed |
-            | Audit (licenses) | Passed |
-
-      - name: Comment PR on failure
-        if: failure() && github.event_name == 'pull_request'
-        uses: marocchino/sticky-pull-request-comment@v2
-        with:
-          message: |
-            ### CI Results
-
-            One or more checks failed. Please review the [CI logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}).
+      - name: Job Summary
+        if: always()
+        run: |
+          echo "## CI Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Check | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|-------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Lint (ESLint + Prettier) | ${{ needs.lint.result == 'success' && '✅ Passed' || '❌ Failed' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Tests | ${{ needs.test.result == 'success' && '✅ Passed' || '❌ Failed' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Build | ${{ job.status == 'success' && '✅ Passed' || '❌ Failed' }} |" >> $GITHUB_STEP_SUMMARY
