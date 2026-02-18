@@ -1,7 +1,8 @@
 ---
 name: Bug Report
 about: Report a bug to help us improve
-labels: 'type: bug'
+title: 'bug(<scope>): '
+labels: 'type: bug, status: needs triage'
 ---
 
 ## Description
@@ -20,16 +21,31 @@ labels: 'type: bug'
 
 ## Actual Behavior
 
-<!-- What actually happened -->
+<!-- What actually happened. Include error messages if any. -->
 
 ## Environment
 
-- **NGCC Version:**
-- **Angular Version:**
-- **Browser:**
-- **OS:**
-- **Node.js Version:**
+| Tool | Version |
+|------|---------|
+| **NGCC** | |
+| **Angular** | |
+| **Node.js** | |
+| **Browser** | |
+| **OS** | |
+
+## Reproduction
+
+<!-- Provide a minimal reproduction: link to a StackBlitz, repo, or inline code snippet -->
+
+## Severity
+
+<!-- How severe is this bug? -->
+
+- [ ] **Blocker** — completely prevents usage of the component
+- [ ] **Major** — significant functionality is broken, no workaround
+- [ ] **Minor** — broken functionality with a reasonable workaround
+- [ ] **Trivial** — cosmetic issue or minor inconvenience
 
 ## Additional Context
 
-<!-- Screenshots, error logs, or any other relevant information -->
+<!-- Screenshots, error logs, screen recordings, or any other relevant information -->

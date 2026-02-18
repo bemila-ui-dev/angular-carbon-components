@@ -1,104 +1,200 @@
 # Contributing to NGCC
 
-Thank you for your interest in contributing to NGCC! This document provides guidelines and instructions for contributing.
+Thank you for your interest in contributing to **NGCC** (Angular Carbon Components)! This guide covers everything you need to know — from setting up your environment to submitting a polished pull request.
+
+> **Inspired by:** The [Carbon Design System](https://github.com/carbon-design-system/carbon) contributing guidelines.
+
+## Table of Contents
+
+- [Code of Conduct](#code-of-conduct)
+- [Getting Started](#getting-started)
+- [Development Setup](#development-setup)
+- [Coding Standards](#coding-standards)
+- [Commit Messages](#commit-messages)
+- [Branching Strategy](#branching-strategy)
+- [Creating a Pull Request](#creating-a-pull-request)
+- [Issue Guidelines](#issue-guidelines)
+- [License](#license)
+
+---
 
 ## Code of Conduct
 
-By participating in this project, you agree to abide by our [Code of Conduct](./CODE_OF_CONDUCT.md).
+By participating in this project, you agree to abide by our [Code of Conduct](./CODE_OF_CONDUCT.md). We are committed to providing a welcoming and inclusive experience for everyone.
 
-## How to Contribute
+---
 
-### Reporting Bugs
+## Getting Started
 
-- Search [existing issues](https://github.com/assistanz/angular-carbon-components/issues) before opening a new one.
-- Use the bug report template and include:
-  - Angular version
-  - `ngcc` version
-  - Steps to reproduce
-  - Expected vs actual behavior
+### Prerequisites
 
-### Suggesting Features
+| Tool     | Version   |
+|----------|-----------|
+| Node.js  | >= 20     |
+| npm      | >= 10     |
+| Git      | Latest    |
 
-- Open a [feature request issue](https://github.com/assistanz/angular-carbon-components/issues/new) describing the use case and expected behavior.
+### First-Time Contributors
 
-### Submitting Pull Requests
+Look for issues labeled **`good first issue`** or **`help wanted`** — these are great starting points. Comment on the issue to let maintainers know you're working on it.
 
-1. Fork the repository and create a branch from `master`.
-2. Install dependencies: `npm install` (this also sets up git hooks automatically via Husky).
-3. Make your changes following the guidelines below.
-4. Add or update tests for your changes.
-5. Commit using the interactive helper: `npm run commit`
-6. Push your branch and open a pull request against `master`.
-7. Ensure PR title follows conventional commit format (e.g., `feat: add radio component`).
+> **Two-week rule:** If a claimed issue has no PR activity within two weeks, it becomes available for others to pick up.
 
-> **Note:** CI will validate your PR title format. Your PR will be squash-merged, so the PR title becomes the commit message in `master`.
+---
 
 ## Development Setup
 
 ```bash
-# Clone your fork
+# 1. Fork the repository on GitHub
+
+# 2. Clone your fork
 git clone https://github.com/<your-username>/angular-carbon-components.git
 cd angular-carbon-components
 
-# Install dependencies (also sets up Husky git hooks)
+# 3. Add upstream remote
+git remote add upstream https://github.com/assistanz/angular-carbon-components.git
+
+# 4. Install dependencies (also sets up Husky git hooks)
 npm install
 
-# Run Storybook
+# 5. Run Storybook for development
 npm run storybook
 
-# Run Precheck (build + test + lint + audit)
+# 6. Run full precheck (build + test + lint + audit)
 npm run precheck
 
-# Build the library
+# 7. Build the library
 npm run build:lib
 ```
 
-## Coding Guidelines
+### Useful Commands
 
-- Use Angular 20+ standalone components with signals (`input()`, `output()`, `signal()`, `computed()`).
-- Set `changeDetection: ChangeDetectionStrategy.OnPush` on all components.
-- Follow the [Angular style guide](https://angular.dev/style-guide).
-- Use native control flow (`@if`, `@for`, `@switch`) instead of structural directives.
-- Implement `ControlValueAccessor` for form components.
-- All components must meet WCAG 2.1 AA accessibility standards.
-- Include `vitest-axe` accessibility tests in every component spec file.
+| Command                  | Description                              |
+|--------------------------|------------------------------------------|
+| `npm run storybook`      | Start Storybook dev server               |
+| `npm run build:lib`      | Build the library                        |
+| `npm run test`           | Run unit tests                           |
+| `npm run lint`           | Run ESLint + Prettier checks             |
+| `npm run lint:fix`       | Auto-fix lint issues                     |
+| `npm run precheck`       | Full validation (build + test + lint)    |
+| `npm run commit`         | Interactive commit wizard                |
+
+---
+
+## Coding Standards
+
+### Angular Conventions
+
+This project follows the [Angular Style Guide](https://angular.dev/style-guide) with these additional requirements:
+
+| Rule | Requirement |
+|------|-------------|
+| **Components** | Angular 20+ standalone components only |
+| **Signals** | Use `input()`, `output()`, `signal()`, `computed()` — no decorators |
+| **Change Detection** | `ChangeDetectionStrategy.OnPush` on all components |
+| **Control Flow** | Native `@if`, `@for`, `@switch` — no structural directives (`*ngIf`, `*ngFor`) |
+| **Forms** | Implement `ControlValueAccessor` for all form components |
+| **Self-closing tags** | Use self-closing tags where possible (`<ngcc-icon />`) |
+
+### Naming Conventions
+
+| Item | Convention | Example |
+|------|-----------|---------|
+| **Component selector** | `ngcc-` prefix, kebab-case | `ngcc-button`, `ngcc-dropdown` |
+| **Directive selector** | `ngcc` prefix, camelCase | `ngccTooltip`, `ngccClickOutside` |
+| **Interface** | `Ngcc` prefix, PascalCase | `NgccDropdownItem`, `NgccTableConfig` |
+| **File names** | kebab-case with type suffix | `ngcc-button.component.ts`, `ngcc-button.component.spec.ts` |
+| **SCSS files** | Component-scoped, kebab-case | `ngcc-button.component.scss` |
+
+### TypeScript Rules
+
+- **No `any`** — use proper types or generics (`@typescript-eslint/no-explicit-any: error`)
+- **Explicit return types** on public methods (warned)
+- **Use `const`** over `let`; never use `var`
+- **Use `===`** for equality checks — no loose equality
+- **No `console.log`** — only `console.warn` and `console.error` are allowed
+- **Use interfaces** over type aliases (`consistent-type-definitions: interface`)
+- **Object shorthand** is required
+
+### Template Rules
+
+- All images must have `alt` text
+- Interactive elements must be keyboard-accessible
+- ARIA attributes must be valid
+- No positive `tabindex` values
+- Template conditional complexity limited to 3
+
+### Formatting (Prettier)
+
+Formatting is enforced via Prettier with the following configuration:
+
+| Setting | Value |
+|---------|-------|
+| Print width | 100 |
+| Tab width | 2 spaces |
+| Semicolons | Always |
+| Quotes | Single quotes |
+| Trailing commas | All |
+| Arrow parens | Always |
+| End of line | LF |
+
+> Run `npm run lint:prettier:fix` to auto-format before committing.
+
+### Accessibility (a11y)
+
+All components **must** meet [WCAG 2.1 AA](https://www.w3.org/WAI/WCAG21/quickref/) standards:
+
+- Include `vitest-axe` accessibility tests in every component spec file
+- Provide proper ARIA labels, roles, and keyboard navigation
+- Test with screen readers when applicable
+- Ensure sufficient color contrast ratios (4.5:1 for text, 3:1 for UI)
+- Support `prefers-reduced-motion` and `prefers-color-scheme`
+
+### Component Structure
+
+Each component should follow this file structure:
+
+```
+projects/ngcc/src/lib/ngcc-<name>/
+├── ngcc-<name>.component.ts        # Component class
+├── ngcc-<name>.component.html       # Template
+├── ngcc-<name>.component.scss       # Styles
+├── ngcc-<name>.component.spec.ts    # Unit + a11y tests
+├── ngcc-<name>.stories.ts           # Storybook stories
+└── index.ts                         # Public API barrel
+```
+
+---
 
 ## Commit Messages
 
-This project uses [Conventional Commits](https://www.conventionalcommits.org/). Commit messages are enforced by Husky + commitlint on every commit.
+This project uses [Conventional Commits](https://www.conventionalcommits.org/) enforced by **Husky + commitlint** on every commit.
 
-### Quick Start: Use the Interactive Helper
+### Quick Start: Interactive Helper
 
 ```bash
-# Stage your changes
+# Stage your changes, then use the wizard
 git add .
-
-# Use the interactive commit wizard (recommended)
 npm run commit
 ```
 
-This will walk you through:
-```
-? Select the type of change:     feat, fix, docs, style, refactor, perf, test, build, ci, chore, revert
-? What is the scope? (optional):  button, dropdown, table, etc.
-? Short description:              add keyboard navigation support
-? Longer description? (optional): ...
-? Breaking changes? (optional):   ...
-```
-
-### Manual Commits
-
-You can also write commit messages manually. The format is:
+### Manual Commit Format
 
 ```
 <type>(<scope>): <description>
 
 [optional body]
 
-[optional footer]
+[optional footer(s)]
 ```
 
-**Types:**
+**Rules:**
+- Header must be **fewer than 72 characters**
+- Use **imperative, present tense**: "add" not "added" or "adds"
+- Do **not** capitalize the first letter of the description
+- Do **not** end the description with a period
+
+### Commit Types
 
 | Type | When to Use | Example |
 |------|-------------|---------|
@@ -114,53 +210,109 @@ You can also write commit messages manually. The format is:
 | `chore` | Maintenance | `chore: update .gitignore` |
 | `revert` | Revert previous commit | `revert: revert dropdown changes` |
 
-**Scope** is optional but encouraged. Use the component name (e.g., `button`, `dropdown`, `table`, `i18n`).
+### Scope
 
-**Breaking changes:** Add `!` after the type or `BREAKING CHANGE:` in the footer:
+Scope is optional but **encouraged**. Use the component name:
+
+```
+feat(button): add icon-only variant
+fix(dropdown): close on escape key
+test(table): add sort column tests
+```
+
+### Breaking Changes
+
+Add `!` after the type or include `BREAKING CHANGE:` in the footer:
+
 ```
 feat(dropdown)!: change selection API to use signals
 
 BREAKING CHANGE: DropdownComponent.selected is now a signal instead of EventEmitter.
+Migration: Replace (selected)="onSelect($event)" with [selected]="selectedSignal".
 ```
 
 ### What Happens on Each Commit
 
 ```
 git commit
-  ├── pre-commit hook  → runs lint (ESLint + Prettier)
-  └── commit-msg hook  → validates commit message format
+  ├── pre-commit hook  → runs lint-staged (ESLint + Prettier)
+  └── commit-msg hook  → validates commit message format (commitlint)
 ```
 
 If either hook fails, the commit is rejected with a clear error message. Fix the issue and try again.
 
-## Creating a Pull Request
+---
 
-### Step-by-Step Guide
+## Branching Strategy
+
+### Branch Naming
+
+Use the format: `<type>/<short-description>`
+
+| Type | Usage | Example |
+|------|-------|---------|
+| `feat/` | New features | `feat/radio-button` |
+| `fix/` | Bug fixes | `fix/dropdown-escape-key` |
+| `docs/` | Documentation | `docs/contributing-guide` |
+| `refactor/` | Refactoring | `refactor/table-sort` |
+| `test/` | Test updates | `test/modal-a11y` |
+| `chore/` | Maintenance | `chore/update-deps` |
+
+### Workflow
 
 ```bash
-# 1. Create a feature branch
+# 1. Sync with upstream
+git fetch upstream
+git checkout master
+git merge upstream/master
+
+# 2. Create a feature branch
 git checkout -b feat/radio-button
 
-# 2. Make your changes and stage them
-git add projects/ngcc/src/lib/ngcc-radio/
-
-# 3. Commit (interactive)
+# 3. Make changes, commit, push
 npm run commit
-
-# 4. Push to your fork
 git push origin feat/radio-button
 
-# 5. Open a PR on GitHub against `master`
+# 4. Open a PR on GitHub against `master`
 ```
 
-### PR Requirements
+---
 
-- **Title** must follow conventional commit format (validated by CI):
-  - `feat: add radio button component`
-  - `fix(dropdown): keyboard navigation not closing on escape`
-- **Description** should use the PR template checklist
-- All CI checks must pass (lint, test, build)
-- At least one maintainer review required
+## Creating a Pull Request
+
+### PR Title
+
+Your PR title **must** follow conventional commit format — CI validates this automatically. The PR will be **squash-merged**, so the PR title becomes the commit message in `master`.
+
+```
+feat: add radio button component
+fix(dropdown): keyboard navigation not closing on escape
+docs: update contributing guide with coding standards
+```
+
+### PR Description Template
+
+When you open a PR, fill out the template with:
+
+1. **Issue reference** — Link the related issue (`Closes #123`)
+2. **Changelog** — Describe what's New, Changed, or Removed
+3. **Type of Change** — Check the appropriate box
+4. **Checklist** — Confirm all quality gates
+
+### PR Checklist
+
+Before requesting a review, ensure:
+
+- [ ] Code follows the project's [coding standards](#coding-standards)
+- [ ] `npm run lint` passes with no issues
+- [ ] Tests are added/updated for the changes
+- [ ] All tests pass (`npm run test`)
+- [ ] Library builds successfully (`npm run build:lib`)
+- [ ] Accessibility verified (WCAG 2.1 AA) with `vitest-axe` tests
+- [ ] Storybook story added or updated (if applicable)
+- [ ] Documentation updated (if applicable)
+- [ ] Reviewed every line of the diff before submitting
+- [ ] Cross-browser tested (Chrome, Firefox, Safari, Edge) for UI changes
 
 ### PR Labels (auto-applied)
 
@@ -177,6 +329,68 @@ Labels are automatically added based on files changed:
 | `area: i18n` | Changes to `ngcc-i18n/**` |
 | `area: build` | Changes to `package.json`, `angular.json`, tsconfig |
 
+### Review Process
+
+1. At least **one maintainer review** is required
+2. All CI checks must pass
+3. Address all review comments before merging
+4. PRs are **squash-merged** into `master`
+
+---
+
+## Issue Guidelines
+
+### Before Opening an Issue
+
+1. **Search existing issues** — your problem may already be reported
+2. **Check closed issues** — it may have been resolved
+3. **Reproduce the issue** — confirm it's not caused by your local setup
+
+### Bug Reports
+
+Use the **Bug Report** template and include:
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| Description | Yes | Clear, concise description of the bug |
+| Steps to Reproduce | Yes | Numbered steps to trigger the bug |
+| Expected Behavior | Yes | What should happen |
+| Actual Behavior | Yes | What actually happens |
+| NGCC Version | Yes | Version of `@assistanz-networks/ngcc` |
+| Angular Version | Yes | Version of `@angular/core` |
+| Browser | Yes | Browser name and version |
+| OS | Yes | Operating system |
+| Node.js Version | Yes | Node.js version |
+| Screenshots/Logs | No | Visual evidence or error output |
+
+### Feature Requests
+
+Use the **Feature Request** template and include:
+
+| Field | Required | Description |
+|-------|----------|-------------|
+| Problem | Yes | The limitation or pain point |
+| Proposed Solution | Yes | Your suggested approach |
+| Alternatives Considered | No | Other approaches you evaluated |
+| Design Impact | No | Does this need new Carbon tokens or patterns? |
+| Additional Context | No | Mockups, references, or examples |
+
+### Issue Labels
+
+| Label | Description |
+|-------|-------------|
+| `type: bug` | Something isn't working |
+| `type: enhancement` | New feature or improvement |
+| `type: docs` | Documentation improvement |
+| `type: question` | Questions about usage |
+| `good first issue` | Good for newcomers |
+| `help wanted` | Extra attention is needed |
+| `status: needs triage` | Awaiting maintainer review |
+| `priority: high` | Needs immediate attention |
+| `priority: low` | Nice to have, not urgent |
+
+---
+
 ## License
 
-By contributing, you agree that your contributions will be licensed under the [MIT License](./LICENSE).
+By contributing, you agree that your contributions will be licensed under the [MIT License](../LICENSE).

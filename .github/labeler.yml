@@ -1,5 +1,4 @@
 # Labels applied automatically based on file paths changed in PRs
-
 'area: components':
   - changed-files:
       - any-glob-to-any-file:
