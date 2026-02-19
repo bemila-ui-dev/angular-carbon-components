@@ -338,6 +338,42 @@ Labels are automatically added based on files changed:
 
 ---
 
+## Developer Certificate of Origin (DCO)
+
+This project requires all contributors to agree to the [Developer Certificate of Origin](https://developercertificate.org/) to certify that they have the right to submit their work under the project’s license.
+
+### Option 1 — Sign off each commit (recommended)
+
+Use the `-s` flag when committing:
+
+```bash
+git commit -s -m "feat(button): add icon-only variant"
+```
+
+This appends a `Signed-off-by` line to your commit:
+
+```
+Signed-off-by: Your Name <email@example.com>
+```
+
+To sign off all commits on a branch retroactively:
+
+```bash
+git rebase --signoff HEAD~<number-of-commits>
+```
+
+### Option 2 — Comment on the PR
+
+If you forgot to sign off, the DCO bot will comment on your PR with instructions. Add the following comment to sign:
+
+```
+I have read the DCO document and I hereby sign the DCO.
+```
+
+The bot will record your agreement and mark the DCO check as passed.
+
+> **Note:** A `NGCC_BOT_DCO` personal access token must be configured in the repository secrets for the bot to write back signatures.
+
 ## Issue Guidelines
 
 ### Before Opening an Issue

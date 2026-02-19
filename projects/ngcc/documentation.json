@@ -2187,6 +2187,16 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
+                "file": "projects/ngcc/src/lib/ngcc-button/ngcc-button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<NgccButton>",
+                "defaultValue": "{\n  title: 'Components/Button',\n  component: NgccButton,\n  tags: ['autodocs'],\n  decorators: [\n    moduleMetadata({\n      imports: [NgccButton, NgccIcon],\n    }),\n  ],\n  argTypes: {\n    variant: {\n      control: { type: 'select' },\n      options: [\n        'primary',\n        'secondary',\n        'tertiary',\n        'ghost',\n        'danger',\n        'danger_tertiary',\n        'danger_ghost',\n      ],\n    },\n    size: {\n      control: { type: 'select' },\n      options: ['xs', 'sm', 'md', 'lg', 'xl'],\n    },\n    iconName: {\n      control: { type: 'select' },\n      options: Object.keys(ICONS) as NgccIconNameType[],\n    },\n    iconOnly: { control: 'boolean' },\n    disabled: { control: 'boolean' },\n    skeleton: { control: 'boolean' },\n    expressive: { control: 'boolean' },\n  },\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
                 "file": "projects/ngcc/src/lib/ngcc-charts/ngcc-charts-dashboard.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -2202,16 +2212,6 @@
                 "deprecationMessage": "",
                 "type": "Meta<NgccCharts>",
                 "defaultValue": "{\n  title: 'Components/Charts/NgccCharts',\n  component: NgccCharts,\n  tags: ['autodocs'],\n  parameters: {\n    docs: {\n      description: {\n        component: `\n# **NgccCharts (Enterprise Component)**\n\nSignal-driven Angular v20+ wrapper around **Carbon Charts**, supporting:\n- Dynamic theming (via NgccThemeService)\n- Axis, grid, legend, tooltip customization\n- Responsive resize handling\n- 6 chart types: **bar, stackedBar, line, area, pie, donut**\n\n---\n\n## 💡 Features\n- Works seamlessly with dark/light Carbon themes\n- Full reactivity — auto-updates on data, options, or theme change\n- Strongly typed options per chart type\n- Adaptive card-style dashboard ready\n\n---\n\n## 🧠 Usage Example\n\\`\\`\\`html\n<ngcc-charts\n  type=\"line\"\n  [data]=\"chartData\"\n  [options]=\"{\n    title: 'Trend',\n    axes: {\n      bottom: { mapsTo: 'key', scaleType: 'labels' },\n      left: { mapsTo: 'value', includeZero: true }\n    },\n    curve: 'curveMonotoneX',\n    grid: { x: { enabled: true }, y: { enabled: true } },\n  }\"\n/>\n\\`\\`\\`\n        `,\n      },\n    },\n  },\n  argTypes: {\n    type: {\n      control: 'select',\n      options: ['bar', 'stackedBar', 'line', 'area', 'pie', 'donut'],\n      description: 'Chart type to render',\n      table: {\n        category: 'General',\n        defaultValue: { summary: 'bar' },\n      },\n    },\n    data: {\n      control: 'object',\n      description: 'Dataset for the chart',\n      table: { category: 'Data' },\n    },\n    options: {\n      control: 'object',\n      description: 'Chart configuration options',\n      table: { category: 'Config' },\n    },\n    loading: {\n      control: 'boolean',\n      description: 'Shows skeleton while data loads',\n      table: { category: 'State' },\n    },\n    noDataMessage: {\n      control: 'text',\n      description: 'Message when data array is empty',\n      table: { category: 'State' },\n    },\n  },\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/ngcc/src/lib/ngcc-button/ngcc-button.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<NgccButton>",
-                "defaultValue": "{\n  title: 'Components/Button',\n  component: NgccButton,\n  tags: ['autodocs'],\n  decorators: [\n    moduleMetadata({\n      imports: [NgccButton, NgccIcon],\n    }),\n  ],\n  argTypes: {\n    variant: {\n      control: { type: 'select' },\n      options: [\n        'primary',\n        'secondary',\n        'tertiary',\n        'ghost',\n        'danger',\n        'danger_tertiary',\n        'danger_ghost',\n      ],\n    },\n    size: {\n      control: { type: 'select' },\n      options: ['xs', 'sm', 'md', 'lg', 'xl'],\n    },\n    iconName: {\n      control: { type: 'select' },\n      options: Object.keys(ICONS) as NgccIconNameType[],\n    },\n    iconOnly: { control: 'boolean' },\n    disabled: { control: 'boolean' },\n    skeleton: { control: 'boolean' },\n    expressive: { control: 'boolean' },\n  },\n}"
             },
             {
                 "name": "meta",
@@ -3017,6 +3017,17 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
+                "rawtype": "StoryObj<NgccButton>",
+                "file": "projects/ngcc/src/lib/ngcc-button/ngcc-button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 184
+            },
+            {
+                "name": "Story",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
                 "rawtype": "StoryObj<unknown>",
                 "file": "projects/ngcc/src/lib/ngcc-charts/ngcc-charts-dashboard.stories.ts",
                 "deprecated": false,
@@ -3030,17 +3041,6 @@
                 "subtype": "typealias",
                 "rawtype": "StoryObj<unknown>",
                 "file": "projects/ngcc/src/lib/ngcc-charts/ngcc-charts.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "description": "",
-                "kind": 184
-            },
-            {
-                "name": "Story",
-                "ctype": "miscellaneous",
-                "subtype": "typealias",
-                "rawtype": "StoryObj<NgccButton>",
-                "file": "projects/ngcc/src/lib/ngcc-button/ngcc-button.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -4943,6 +4943,19 @@
                     "kind": 184
                 }
             ],
+            "projects/ngcc/src/lib/ngcc-button/ngcc-button.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<NgccButton>",
+                    "file": "projects/ngcc/src/lib/ngcc-button/ngcc-button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 184
+                }
+            ],
             "projects/ngcc/src/lib/ngcc-charts/ngcc-charts-dashboard.stories.ts": [
                 {
                     "name": "Story",
@@ -4963,19 +4976,6 @@
                     "subtype": "typealias",
                     "rawtype": "StoryObj<unknown>",
                     "file": "projects/ngcc/src/lib/ngcc-charts/ngcc-charts.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 184
-                }
-            ],
-            "projects/ngcc/src/lib/ngcc-button/ngcc-button.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "StoryObj<NgccButton>",
-                    "file": "projects/ngcc/src/lib/ngcc-button/ngcc-button.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",

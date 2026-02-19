@@ -35,7 +35,6 @@
   },
   "private": true,
   "dependencies": {
-    "@analogjs/vite-plugin-angular": "^2.2.3",
     "@angular/common": "^20.0.0 || ^21.0.0",
     "@angular/compiler": "^20.0.0 || ^21.0.0",
     "@angular/core": "^20.0.0 || ^21.0.0",
@@ -81,6 +80,7 @@
     "scss": "^0.2.4",
     "storybook": "^10.2.1",
     "typescript": "~5.9.2",
+    "@analogjs/vite-plugin-angular": "^2.2.3",
     "vite-tsconfig-paths": "^6.1.0",
     "vitest": "^3.2.4 || ^4.0.0",
     "vitest-axe": "^0.1.0",
