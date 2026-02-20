@@ -29,12 +29,6 @@
       }
     ],
     [
-      "@semantic-release/changelog",
-      {
-        "changelogFile": "CHANGELOG.md"
-      }
-    ],
-    [
       "@semantic-release/exec",
       {
         "prepareCmd": "npm --prefix projects/ngcc version ${nextRelease.version} --no-git-tag-version && npm run build:lib",
@@ -46,13 +40,6 @@
       {
         "successComment": "🎉 This PR is included in version ${nextRelease.version} 🎉\n\nThe release is available on:\n- [npm package](https://www.npmjs.com/package/@assistanz-networks/ngcc) (`@latest` dist-tag)\n- [GitHub release](${releases.filter(release => !!release.name).map(release => release.url).join(', ')})",
         "releasedLabels": ["status: released"]
-      }
-    ],
-    [
-      "@semantic-release/git",
-      {
-        "assets": ["CHANGELOG.md", "projects/ngcc/package.json"],
-        "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
       }
     ]
   ]

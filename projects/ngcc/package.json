@@ -32,10 +32,6 @@
   "module": "./fesm2022/ngcc.mjs",
   "typings": "./index.d.ts",
   "exports": {
-    ".": {
-      "types": "./index.d.ts",
-      "default": "./fesm2022/ngcc.mjs"
-    },
     "./styles": "./styles/carbon.scss"
   },
   "files": [
