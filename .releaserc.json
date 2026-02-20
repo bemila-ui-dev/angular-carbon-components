@@ -1,44 +1,36 @@
+
 {
-  "branches": ["master"],
+  "branches": ["main", "master"],
   "tagFormat": "v${version}",
   "plugins": [
     [
       "@semantic-release/commit-analyzer",
       {
-        "preset": "conventionalcommits",
-        "releaseRules": [
-          { "type": "feat", "release": "minor" },
-          { "type": "fix", "release": "patch" },
-          { "type": "perf", "release": "patch" },
-          { "type": "revert", "release": "patch" },
-          { "type": "refactor", "release": "patch" },
-          { "type": "docs", "release": false },
-          { "type": "style", "release": false },
-          { "type": "test", "release": false },
-          { "type": "build", "release": false },
-          { "type": "ci", "release": false },
-          { "type": "chore", "release": false },
-          { "breaking": true, "release": "major" }
-        ]
-      }
-    ],
-    [
-      "@semantic-release/release-notes-generator",
-      {
         "preset": "conventionalcommits"
       }
+    ],
+    "@semantic-release/release-notes-generator",
+    "@semantic-release/changelog",
+    [
+      "@semantic-release/npm",
+      { "pkgRoot": "dist/ngcc" }
     ],
     [
       "@semantic-release/exec",
       {
-        "prepareCmd": "npm --prefix projects/ngcc version ${nextRelease.version} --no-git-tag-version && npm run build:lib",
-        "publishCmd": "npm publish ./dist/ngcc --provenance --access public"
+        "prepareCmd": "npm --prefix projects/ngcc version ${nextRelease.version} --no-git-tag-version && npm run build:lib"
+      }
+    ],
+    [
+      "@semantic-release/git",
+      {
+        "assets": ["CHANGELOG.md", "projects/ngcc/package.json"],
+        "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
       }
     ],
     [
       "@semantic-release/github",
       {
-        "successComment": "🎉 This PR is included in version ${nextRelease.version} 🎉\n\nThe release is available on:\n- [npm package](https://www.npmjs.com/package/@assistanz-networks/ngcc) (`@latest` dist-tag)\n- [GitHub release](${releases.filter(release => !!release.name).map(release => release.url).join(', ')})",
         "releasedLabels": ["status: released"]
       }
     ]
