@@ -32,7 +32,7 @@
       "@semantic-release/exec",
       {
         "prepareCmd": "npm --prefix projects/ngcc version ${nextRelease.version} --no-git-tag-version && npm run build:lib",
-        "publishCmd": "npm publish dist/ngcc --provenance --access public"
+        "publishCmd": "npm publish ./dist/ngcc --provenance --access public"
       }
     ],
     [
