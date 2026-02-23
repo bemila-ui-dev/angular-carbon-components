@@ -111,3 +111,5 @@ ng build ngcc
 
 This project uses IBM's Carbon Design System packages under the Apache-2.0 license.
 See [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md) for details.
+
+## Contributors
